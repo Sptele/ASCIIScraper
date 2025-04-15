@@ -1,3 +1,5 @@
+package configuration;
+
 public enum CharacterOption {
 	FULL, FITTED, SMUSH_R {
 		@Override
