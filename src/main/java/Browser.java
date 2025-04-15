@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.*;
 
+// TODO: Move to new file
 enum BrowserType {
 	CHROME {
 		@Override
@@ -48,7 +49,9 @@ public class Browser {
 
 	private Configuration config;
 	private WebDriver driver;
-	private ArrayList<Configuration> loadedConfigs;
+	private ArrayList<Configuration> loadedConfigs; // TODO: Move outside of Browser (to new class or maybe static method in Configuration)
+	// TODO: mass search outside of Browser should load/clear configs, bring in a Browser, Configuration.
+	// Mass searching should occur within this: loadnew config, then search, over and over. No mutator within a retriever
 
 	public Browser() {
 		this(BrowserType.FIREFOX.driver(), new Configuration());
