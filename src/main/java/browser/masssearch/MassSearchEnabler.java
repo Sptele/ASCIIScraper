@@ -1,29 +1,37 @@
-package browser;
+package browser.masssearch;
 
-import browser.masssearch.MassSearchStrategy;
+import browser.Browser;
 import configuration.Configuration;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class BrowserMassSearch {
+public class MassSearchEnabler {
     private Browser browser;
     private Configuration[] configs;
 
-    public BrowserMassSearch(Browser browser, Configuration[] configs) {
+    private MassSearchStrategy strategy;
+
+    public MassSearchEnabler(Browser browser, Configuration[] configs) {
         this.browser = browser;
         this.configs = configs;
     }
 
-    public BrowserMassSearch(Configuration[] configs) {
+    public MassSearchEnabler(Browser browser, Configuration[] configs, MassSearchStrategy strategy) {
+        this.browser = browser;
+        this.configs = configs;
+        this.strategy = strategy;
+    }
+
+    public MassSearchEnabler(Configuration[] configs) {
         this(new Browser(), configs);
     }
 
-    public BrowserMassSearch(Browser browser) {
+    public MassSearchEnabler(Browser browser) {
         this(browser, null);
     }
 
-    public BrowserMassSearch() {
+    public MassSearchEnabler() {
         this(new Browser(), null);
     }
 
@@ -43,7 +51,15 @@ public class BrowserMassSearch {
         this.configs = configs;
     }
 
-    public String[] massSearch(MassSearchStrategy strategy) {
+    public MassSearchStrategy getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(MassSearchStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public String[] massSearch() {
         String[] rtnr = new String[configs.length];
 
         for (int i = 0; i < configs.length; i++) {
@@ -63,7 +79,7 @@ public class BrowserMassSearch {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BrowserMassSearch that = (BrowserMassSearch) o;
+        MassSearchEnabler that = (MassSearchEnabler) o;
         return Objects.equals(browser, that.browser) && Arrays.equals(configs, that.configs);
     }
 

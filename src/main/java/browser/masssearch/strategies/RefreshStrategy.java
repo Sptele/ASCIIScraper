@@ -11,6 +11,7 @@ public class RefreshStrategy extends MassSearchStrategy {
 
     @Override
     public String search() {
+
         getBrowser().getDriver().navigate().refresh();
         getBrowser().open();
 

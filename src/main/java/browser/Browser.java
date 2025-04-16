@@ -17,9 +17,6 @@ public class Browser {
 	private Configuration config;
 	private WebDriver driver;
 
-	// TODO: mass search outside of browser.Browser should load/clear configs, bring in a browser.Browser, configuration.Configuration.
-	// Mass searching should occur within this: loadnew config, then search, over and over. No mutator within a retriever
-
 	public Browser() {
 		this(BrowserType.FIREFOX.driver(), new Configuration());
 	}
@@ -27,6 +24,8 @@ public class Browser {
 	public Browser(WebDriver driver, Configuration config) {
 		this.config = config;
 		this.driver = driver;
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 	}
 
 	public Browser(BrowserType browser, Configuration config) {
@@ -37,6 +36,10 @@ public class Browser {
 		this(BrowserType.FIREFOX.driver(), config);
 	}
 
+	public Browser(BrowserType browser) {
+		this(browser.driver(), new Configuration());
+	}
+
 	public void open() {
 		driver.get(config.generateURL()); // Navigate to website
 	}
@@ -44,16 +47,11 @@ public class Browser {
 	public String scrapeASCII() {
 		WebElement displayBox = getElement("taag_output_text");
 
-		Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-		wait.until(d -> displayBox.isDisplayed());
-
 		return displayBox.getText();
 	}
 
 	public WebElement getElement(String id) {
-		WebElement el = driver.findElement(By.id(id)); // Query Element
-
-		return el;
+		return driver.findElement(By.id(id));
 	}
 
 	public void quit() {
@@ -75,4 +73,5 @@ public class Browser {
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
 	}
+
 }

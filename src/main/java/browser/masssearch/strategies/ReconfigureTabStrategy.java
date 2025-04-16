@@ -19,8 +19,14 @@ public class ReconfigureTabStrategy extends MassSearchStrategy {
     @Override
     public String search() {
         boolean successful = updatePageToConfiguration();
+        getBrowser().open();
+
         // TODO: do something with this?
         return getBrowser().scrapeASCII();
+    }
+
+    private String dirt(String text) {
+        return text.replaceAll("%20", " ");
     }
 
     public boolean updatePageToConfiguration() {
@@ -31,14 +37,10 @@ public class ReconfigureTabStrategy extends MassSearchStrategy {
             WebElement width = getBrowser().getElement("taagCharWidth");
             WebElement height = getBrowser().getElement("taagCharHeight");
 
-            Wait<WebDriver> wait = new WebDriverWait(getBrowser().getDriver(), Duration.ofSeconds(2));
-            wait.until(d -> input.isDisplayed());
-
-
             Configuration config = getBrowser().getConfig();
 
             input.clear();
-            input.sendKeys(config.getText());
+            input.sendKeys(dirt(config.getText()));
 
             fontList.sendKeys(config.getFont());
             width.sendKeys(config.getWidth().toString());

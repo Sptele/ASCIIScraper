@@ -1,6 +1,8 @@
 import browser.Browser;
-import browser.BrowserMassSearch;
+import browser.masssearch.MassSearchEnabler;
 import browser.BrowserType;
+import browser.masssearch.MassSearchStrategy;
+import browser.masssearch.strategies.NewTabStrategy;
 import browser.masssearch.strategies.ReconfigureTabStrategy;
 import browser.masssearch.strategies.RefreshStrategy;
 import configuration.Configuration;
@@ -35,18 +37,18 @@ public class Operator {
 				"Credit to Patorjk"
 		};
 
+		Browser browser = new Browser(BrowserType.FIREFOX);
+		MassSearchStrategy strategy = new RefreshStrategy(browser);
+		MassSearchEnabler foxyLoader = new MassSearchEnabler(browser, Configuration.bundle(fonts, texts), strategy);
 
-//		System.out.println("URL: " + foxy.getConfig().generateURL());
-//		System.out.println("Navigating...");
+//		String[] output = foxyLoader.massSearch();
 //
-//		foxy.open();
-//		String out = foxy.scrapeASCII();
-//
-//		System.out.println(out);
+//		for (String s : output) {
+//			System.out.println(s.stripTrailing());
+//			System.out.println();
+//		}
 
 
-		BrowserMassSearch foxyLoader = new BrowserMassSearch(new Browser(BrowserType.EDGE.driver(), new Configuration()), Configuration.bundle(fonts, texts));
-		System.out.println(Arrays.toString(foxyLoader.massSearch(new ReconfigureTabStrategy(foxyLoader.getBrowser()))));
 
 		foxyLoader.quit();
 	}

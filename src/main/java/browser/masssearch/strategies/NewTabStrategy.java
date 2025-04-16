@@ -11,6 +11,7 @@ public class NewTabStrategy extends MassSearchStrategy {
 
     @Override
     public String search() {
+        getBrowser().open();
         String rtnr = getBrowser().scrapeASCII();
         getBrowser().getDriver().switchTo().newWindow(WindowType.TAB);
 
