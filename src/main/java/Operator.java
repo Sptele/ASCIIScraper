@@ -1,3 +1,10 @@
+import browser.Browser;
+import browser.BrowserMassSearch;
+import browser.BrowserType;
+import browser.masssearch.strategies.ReconfigureTabStrategy;
+import browser.masssearch.strategies.RefreshStrategy;
+import configuration.Configuration;
+
 import java.util.Arrays;
 
 public class Operator {
@@ -29,8 +36,6 @@ public class Operator {
 		};
 
 
-		Browser foxy = new Browser();
-
 //		System.out.println("URL: " + foxy.getConfig().generateURL());
 //		System.out.println("Navigating...");
 //
@@ -39,9 +44,10 @@ public class Operator {
 //
 //		System.out.println(out);
 
-		foxy.loadConfigurations(Configuration.bundle(fonts, texts));
-		System.out.println(Arrays.toString(foxy.massSearch()));
 
-		foxy.quit();
+		BrowserMassSearch foxyLoader = new BrowserMassSearch(new Browser(BrowserType.EDGE.driver(), new Configuration()), Configuration.bundle(fonts, texts));
+		System.out.println(Arrays.toString(foxyLoader.massSearch(new ReconfigureTabStrategy(foxyLoader.getBrowser()))));
+
+		foxyLoader.quit();
 	}
 }

@@ -1,3 +1,5 @@
+package configuration;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -96,7 +98,7 @@ public class Configuration {
 
 	@Override
 	public String toString() {
-		return "Configuration{" +
+		return "configuration.Configuration{" +
 				"font='" + font + '\'' +
 				", text='" + text + '\'' +
 				", width='" + width + '\'' +
